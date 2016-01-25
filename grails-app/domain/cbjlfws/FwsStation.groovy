@@ -7,7 +7,7 @@ class FwsStation {
     //服务商工位个数
     Integer stationNumber
     //服务商可用工位个数
-    Integer Number
+    Integer number
     //录入时间
     Date     time
     static    hasOne = [fwsShop:FwsShop]

@@ -64,7 +64,7 @@
                                 <g:form>
                                     <g:hiddenField name="id" value="${fwsStationInstance?.id}" />
                                     <g:link action="fwsStationEdit" id="${fwsStationInstance?.id}" class="btn btn-info">修改</g:link>
-                                    <g:actionSubmit type="submit" class="btn btn-info" action="fwsDepartmentDelete"  value="删除" onclick="return confirm('确定删除?');" />
+                                    <g:actionSubmit type="submit" class="btn btn-info" action="fwsStationDelete"  value="删除" onclick="return confirm('确定删除?');" />
                                     <a href="javascript:history.go(-1);" class="ml15 btn btn-info">取消</a>
                                 </g:form>
                             </td>

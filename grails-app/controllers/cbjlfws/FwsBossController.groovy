@@ -384,6 +384,8 @@ class FwsBossController {
         def fwsStationInstance = new FwsStation(params)
         def fwsShopId = params.fwsShopId
         fwsStationInstance.fwsShop = FwsShop.get(fwsShopId)
+        fwsStationInstance.number=0
+        fwsStationInstance.time = new Date()
         if (!fwsStationInstance.save(flush: true)) {
             render(view: "fwsStationCreate", model: [fwsStationInstance: fwsStationInstance])
             return
