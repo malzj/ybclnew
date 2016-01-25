@@ -413,7 +413,7 @@ class FwsBossController {
     //删除
     def fwsStationDelete(Long id) {
         def fwsStationInstance = FwsStation.get(id)
-        def fwsShopId = fwsStationInstance.fwsShop.id
+        def fwsShopId = fwsStationInstance.fwsShop.ida
         if (!fwsStationInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'fwsStation.label', default: 'FwsStation'), id])
             redirect(action: "fwsStationList",id: fwsShopId)
