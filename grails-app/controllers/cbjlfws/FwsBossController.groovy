@@ -171,7 +171,6 @@ class FwsBossController {
 
         [fwsUserInstance: fwsUserInstance, name: fwsUserInstance.fwsShop.name, id: fwsShopId, departmentList: departmentList, gongnenglistrole: gongnenglistrole, listgongneng: listgongneng]
     }
-
     def fwsUserUpdate(Long id, Long version) {
         def fwsUserInstance = FwsUser.get(id)
         fwsUserInstance.department = Department.get(params.departmentId)
@@ -241,6 +240,7 @@ class FwsBossController {
             redirect(action: "fwsUserShow", id: id)
         }
     }
+
 
     //金成柱
 
@@ -360,6 +360,7 @@ class FwsBossController {
     }
 
     //表弟
+
     //列表
     def fwsStationList(Integer max) {
         def fwsShopId = params.id
@@ -369,6 +370,7 @@ class FwsBossController {
         params.max = Math.min(max ?: 10, 100)
         [fwsStationList: fwsStationList, id: fwsShopId, name: name, fwsStationListInstanceTotal: FwsStation.countByFwsShop(fwsShop)]
     }
+
     //添加
     def fwsStationCreate() {
         def fwsShopId = params.id
@@ -376,7 +378,8 @@ class FwsBossController {
         def name = fwsShop.name
         [fwsStationInstance: new FwsStation(params),id: fwsShopId,name: name]
     }
-//保存
+
+    //保存
     def fwsStationSave() {
         def fwsStationInstance = new FwsStation(params)
         def fwsShopId = params.fwsShopId
@@ -389,7 +392,8 @@ class FwsBossController {
         flash.message = message(code: 'default.created.message', args: [message(code: 'fwsStation.label', default: 'FwsStation'), fwsStationInstance.id])
         redirect(action: "fwsStationList", id: fwsShopId)
     }
-    //查看
+
+//查看
     def fwsStationShow(Long id) {
         def fwsStationInstance = FwsStation.get(id)
         def fwsShopId = fwsStationInstance.fwsShopId
@@ -403,6 +407,7 @@ class FwsBossController {
 
         [fwsStationInstance: fwsStationInstance,name: name,id: fwsShopId]
     }
+
     //删除
     def fwsStationDelete(Long id) {
         def fwsStationInstance = FwsStation.get(id)
@@ -423,7 +428,8 @@ class FwsBossController {
             redirect(action: "fwsStationShow", id: id)
         }
     }
-//编辑
+
+    //编辑
     def fwsStationEdit(Long id) {
         def fwsStationInstance = FwsStation.get(id)
         def fwsShopId = fwsStationInstance.fwsShopId
@@ -438,7 +444,8 @@ class FwsBossController {
 
         [fwsStationInstance: fwsStationInstance,name: name,id: fwsShopId,fwsStationList: fwsStationList]
     }
-//更新
+
+    //更新
     def fwsStationUpdate(Long id, Long version) {
         def fwsStationInstance = FwsStation.get(id)
         if (!fwsStationInstance) {
@@ -467,7 +474,4 @@ class FwsBossController {
         flash.message = message(code: 'default.updated.message', args: [message(code: 'fwsStation.label', default: 'FwsStation'), fwsStationInstance.id])
         redirect(action: "fwsStationShow", id: fwsStationInstance.id)
     }
-
-
-
 }
