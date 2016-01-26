@@ -45,27 +45,27 @@
                     <header class="panel-heading">
                         <span><i class="yh"></i>修改用户</span>
                     </header>
-                    <g:form action="fwsDepartmentSave" method="post">
+                    <g:form action="fwsClientDepartmentUpdate" method="post">
 
-                        <g:hiddenField name="id" value="${departmentInstance?.id}" />
-                        <g:hiddenField name="version" value="${departmentInstance?.version}" />
+                        <g:hiddenField name="id" value="${fwsClientDepartmentInstance?.id}" />
+                        <g:hiddenField name="version" value="${fwsClientDepartmentInstance?.version}" />
                         <table>
-                                   <tr>
-                                       <td>部门名称：</td>
-                                       <td width="345"><input name="name" class="form-control form-control-inline input-medium default-date-picker" type="text" value="${departmentInstance?.name}"></td>
-                                    </tr>
-                        <tr>
-                            <td>部门负责人：</td>
-                            <td><input name="linkMan" class="form-control form-control-inline input-medium default-date-picker" type="text" value="${departmentInstance?.linkMan}"></td>
-                        </tr>
-                        <tr>
-                            <td>部门编号：</td>
-                            <td><input name="number" class="form-control form-control-inline input-medium default-date-picker" type="text" value="${departmentInstance?.number}"></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td align="right"><button type="submit" class="btn btn-info">保存</button><a href="javascript:history.go(-1);" class="ml20 btn btn-info">取消</a></td>
-                        </tr>
+                            <tr>
+                                <td>部门名称：</td>
+                                <td width="345"><input name="name" class="form-control form-control-inline input-medium default-date-picker" type="text" value="${fwsClientDepartmentInstance?.name}"></td>
+                            </tr>
+                            <tr>
+                                <td>部门负责人：</td>
+                                <td><input name="linkMan" class="form-control form-control-inline input-medium default-date-picker" type="text" value="${fwsClientDepartmentInstance?.linkMan}"></td>
+                            </tr>
+                            <tr>
+                                <td>部门编号：</td>
+                                <td><input name="number" class="form-control form-control-inline input-medium default-date-picker" type="text" value="${fwsClientDepartmentInstance?.number}"></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td align="right"><button type="submit" class="btn btn-info">保存</button><a href="javascript:history.go(-1);" class="ml20 btn btn-info">取消</a></td>
+                            </tr>
                         </table>
                     </g:form>
                 </div>

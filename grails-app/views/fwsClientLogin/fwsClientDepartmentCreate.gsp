@@ -38,41 +38,46 @@
     <g:render template="sidebar" />
     <!--sidebar end-->
     <!--main content start-->
-    <section id="main-content" class="col-xs-10" style="padding-left: 0;">
-        <section class="wrapper">
-            <div class="middle_content">
-                <div class="m_box">
-                    <header class="panel-heading">
-                        <span><i class="yh"></i>修改用户</span>
-                    </header>
-                    <g:form action="fwsDepartmentSave" method="post">
+    <section id="main-content">
+        <section class="wrapper mt80">
+            <div class="row">
+                <div class="col-lg-12">
+                    <section class="panel">
 
-                        <g:hiddenField name="id" value="${departmentInstance?.id}" />
-                        <g:hiddenField name="version" value="${departmentInstance?.version}" />
-                        <table>
-                                   <tr>
-                                       <td>部门名称：</td>
-                                       <td width="345"><input name="name" class="form-control form-control-inline input-medium default-date-picker" type="text" value="${departmentInstance?.name}"></td>
+
+                        <header class="panel-heading">
+                            新增部门
+                        </header>
+                        <div class="panel-body">
+                            <g:form class="form-horizontal tasi-form" controller="fwsClientLogin" action="fwsClientDepartmentSave" method= "post" enctype= "multipart/form-data">
+                                <table>
+                                    <input name="fwsShopId" type="hidden" value="${id}">
+
+                                    <tr>
+                                        <td>部门名称：</td>
+                                        <td width="345"><input name="name" class="form-control form-control-inline input-medium default-date-picker" type="text" value=""></td>
                                     </tr>
-                        <tr>
-                            <td>部门负责人：</td>
-                            <td><input name="linkMan" class="form-control form-control-inline input-medium default-date-picker" type="text" value="${departmentInstance?.linkMan}"></td>
-                        </tr>
-                        <tr>
-                            <td>部门编号：</td>
-                            <td><input name="number" class="form-control form-control-inline input-medium default-date-picker" type="text" value="${departmentInstance?.number}"></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td align="right"><button type="submit" class="btn btn-info">保存</button><a href="javascript:history.go(-1);" class="ml20 btn btn-info">取消</a></td>
-                        </tr>
-                        </table>
-                    </g:form>
+                                    <tr>
+                                        <td>部门负责人：</td>
+                                        <td><input name="linkMan" class="form-control form-control-inline input-medium default-date-picker" type="text" value=""></td>
+                                    </tr>
+                                    <tr>
+                                        <td>部门编号：</td>
+                                        <td><input name="number" class="form-control form-control-inline input-medium default-date-picker" type="text" value=""></td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td align="right"><button type="submit" class="btn btn-info">保存</button><a href="javascript:history.go(-1);" class="ml20 btn btn-info">取消</a></td>
+                                    </tr>
+                                </table>
+                            </g:form>
+                        </div>
+                    </section>
                 </div>
             </div>
-        </section>
-        <!--main content end-->
 
+
+        </section>
     </section>
 
 </section>
