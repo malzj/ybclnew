@@ -50,7 +50,31 @@ class FwsClientLoginController {
         def fwsUser = session.fwsUser
         def list = side()
         [list:list]
+    }
+    def fwsClientlist(Integer max){
+        params.max = Math.min(max ?: 10, 100)
+        def fwsUser = session.fwsUser
+        def fwsShop = FwsShop.get(fwsUser.fwsShop.id)
+        def fwsClientList = FwsClient.findAllByFwsShop(fwsShop,params)
+        def fwsClientInstanceTotal = FwsClient.countByFwsShop(fwsShop)
+        [fwsClientList:fwsClientList,fwsClientInstanceTotal:fwsClientInstanceTotal]
 
+    }
+    def fwsClientCreate(){
+        [fwsClientInstance: new FwsClient(params)]
+    }
+    def fwsClientSave(){
+        def fwsClientInstance = new FwsClient(params)
+        def fwsUser = session.fwsUser
+        def fwsShop = FwsShop.get(fwsUser.fwsShop.id)
+         fwsClientInstance.fwsShop=fwsShop
+        if (!fwsClientInstance.save(flush: true)) {
+            render(view: "create", model: [fwsClientInstance: fwsClientInstance])
+            return
+        }
+
+        flash.message = message(code: 'default.created.message', args: [message(code: 'fwsClient.label', default: 'FwsClient'), fwsClientInstance.id])
+        redirect(action: "fwsClientlist", id: fwsClientInstance.id)
     }
 
 }
