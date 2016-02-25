@@ -92,8 +92,11 @@ class YbLoginController {
         redirect(action: "ybUserList", id: ybUserInstance.id)
     }
 
-    def ybUsershow(Long id) {
+    def ybUsershow(Long id,Integer max) {
+
         def list = side()
+
+
         def ybUserInstance = YbUser.get(id)
         if (!ybUserInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'ybUser.label', default: 'YbUser'), id])
@@ -112,8 +115,9 @@ class YbLoginController {
             print(s)
             listgongneng << g
         }
-
-        [ybUserInstance: ybUserInstance, list: list, listgongneng: listgongneng]
+        params.max = Math.min(max ?: 10, 100)
+        def ybUserList=YbUser.list(params)
+        [ybUserList:ybUserList,ybUserInstance: ybUserInstance, list: list, listgongneng: listgongneng]
     }
 
     def ybUserEdit(Long id) {
@@ -239,6 +243,7 @@ class YbLoginController {
             redirect(action: "ybClientList")
             return
         }
+        [ybClientInstance:ybClientInstance,list:list]
     }
 
     def ybClientDelete(Long id) {
