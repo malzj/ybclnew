@@ -43,36 +43,75 @@
             <div class="middle_content">
                 <div class="m_box">
                     <header class="panel-heading">
-                        <span><i class="yh"></i>修改用户</span>
+                        <span><i class="yh"></i>用户信息</span>
                     </header>
-                    <g:form action="fwsDepartmentSave" method="post">
-
-                        <g:hiddenField name="id" value="${departmentInstance?.id}" />
-                        <g:hiddenField name="version" value="${departmentInstance?.version}" />
-                        <table>
-                                   <tr>
-                                       <td>部门名称：</td>
-                                       <td width="345"><input name="name" class="form-control form-control-inline input-medium default-date-picker" type="text" value="${departmentInstance?.name}"></td>
-                                    </tr>
+                    <table>
                         <tr>
-                            <td>部门负责人：</td>
-                            <td><input name="linkMan" class="form-control form-control-inline input-medium default-date-picker" type="text" value="${departmentInstance?.linkMan}"></td>
+                            <td>用户名：</td>
+                            <td width="345">${fieldValue(bean: fwsUserInstance, field: "username")}</td>
                         </tr>
                         <tr>
-                            <td>部门编号：</td>
-                            <td><input name="number" class="form-control form-control-inline input-medium default-date-picker" type="text" value="${departmentInstance?.number}"></td>
+                            <td>密码：</td>
+                            <td>${fieldValue(bean: fwsUserInstance, field: "password")}</td>
+                        </tr>
+                        <tr>
+                            <td>姓名：</td>
+                            <td>${fieldValue(bean: fwsUserInstance, field: "name")}</td>
+                        </tr>
+                        <tr>
+                            <td>手机号：</td>
+                            <td>${fieldValue(bean: fwsUserInstance, field: "phone")}</td>
+                        </tr>
+                        <tr>
+                            <td>职位：</td>
+                            <td>${fieldValue(bean: fwsUserInstance, field: "position")}</td>
+                        </tr>
+                        <tr>
+                            <td>部门：</td>
+                            <td>${fwsUserInstance.department.name}</td>
+                        </tr>
+                        <tr>
+                            <td>收入：</td>
+                            <td>${fieldValue(bean: fwsUserInstance, field: "money")}</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                权限
+                            </td>
+                            <td>
+                                <g:each in="${listgongneng}" status="i" var="gongneng">
+                                    ${gongneng.functionName},
+
+                                </g:each>
+                            </td>
                         </tr>
                         <tr>
                             <td></td>
-                            <td align="right"><button type="submit" class="btn btn-info">保存</button><a href="javascript:history.go(-1);" class="ml20 btn btn-info">取消</a></td>
+                            <td align="right">
+                                <g:form>
+                                    <g:hiddenField name="id" value="${fwsUserInstance?.id}" />
+                                    <g:link action="fwsUserEdit" id="${fwsUserInstance?.id}" class="btn btn-info">修改</g:link>
+                                    <g:actionSubmit type="submit" class="btn btn-info" action="fwsUserDelete"  value="删除" onclick="return confirm('确定删除?');" />
+                                    <a href="javascript:history.go(-1);" class="ml15 btn btn-info">取消</a>
+                                </g:form>
+                            </td>
                         </tr>
-                        </table>
-                    </g:form>
+                    </table>
                 </div>
             </div>
         </section>
         <!--main content end-->
 
+        <!--footer start-->
+        %{--<footer class="site-footer">--}%
+        %{--<div class="text-center">--}%
+        %{--2013 &copy; FlatLab by VectorLab.--}%
+        %{--<a href="index.html#" class="go-top">--}%
+        %{--<i class="fa fa-angle-up"></i>--}%
+        %{--</a>--}%
+        %{--</div>--}%
+        %{--</footer>--}%
+        <!--footer end-->
     </section>
 
 </section>

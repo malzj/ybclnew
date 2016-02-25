@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <title>${name}后台管理系统</title>
+    <title>${name}台管理系统</title>
 
     <!-- Bootstrap core CSS -->
     <link href="${resource(dir: 'css', file: 'bootstrap.min.css')}" rel="stylesheet">
@@ -43,36 +43,48 @@
             <div class="middle_content">
                 <div class="m_box">
                     <header class="panel-heading">
-                        <span><i class="yh"></i>修改用户</span>
+                        <span><i class="yh"></i>部门信息</span>
                     </header>
-                    <g:form action="fwsDepartmentSave" method="post">
-
-                        <g:hiddenField name="id" value="${departmentInstance?.id}" />
-                        <g:hiddenField name="version" value="${departmentInstance?.version}" />
-                        <table>
-                                   <tr>
-                                       <td>部门名称：</td>
-                                       <td width="345"><input name="name" class="form-control form-control-inline input-medium default-date-picker" type="text" value="${departmentInstance?.name}"></td>
-                                    </tr>
+                    <table>
+                        <tr>
+                            <td>部门名称：</td>
+                            <td width="345">${fieldValue(bean: fwsClientDepartmentInstance, field: "name")}</td>
+                        </tr>
                         <tr>
                             <td>部门负责人：</td>
-                            <td><input name="linkMan" class="form-control form-control-inline input-medium default-date-picker" type="text" value="${departmentInstance?.linkMan}"></td>
+                            <td>${fieldValue(bean: fwsClientDepartmentInstance, field: "linkMan")}</td>
                         </tr>
                         <tr>
                             <td>部门编号：</td>
-                            <td><input name="number" class="form-control form-control-inline input-medium default-date-picker" type="text" value="${departmentInstance?.number}"></td>
+                            <td>${fieldValue(bean: fwsClientDepartmentInstance, field: "number")}</td>
                         </tr>
                         <tr>
                             <td></td>
-                            <td align="right"><button type="submit" class="btn btn-info">保存</button><a href="javascript:history.go(-1);" class="ml20 btn btn-info">取消</a></td>
+                            <td align="right">
+                                <g:form>
+                                    <g:hiddenField name="id" value="${fwsClientDepartmentInstance?.id}" />
+                                    <g:link action="fwsClientDepartmentEdit" id="${fwsClientDepartmentInstance?.id}" class="btn btn-info">修改</g:link>
+                                    <g:actionSubmit type="submit" class="btn btn-info" action="fwsClientDepartmentDelete"  value="删除" onclick="return confirm('确定删除?');" />
+                                    <a href="javascript:history.go(-1);" class="ml15 btn btn-info">取消</a>
+                                </g:form>
+                            </td>
                         </tr>
-                        </table>
-                    </g:form>
+                    </table>
                 </div>
             </div>
         </section>
         <!--main content end-->
 
+        <!--footer start-->
+        %{--<footer class="site-footer">--}%
+        %{--<div class="text-center">--}%
+        %{--2013 &copy; FlatLab by VectorLab.--}%
+        %{--<a href="index.html#" class="go-top">--}%
+        %{--<i class="fa fa-angle-up"></i>--}%
+        %{--</a>--}%
+        %{--</div>--}%
+        %{--</footer>--}%
+        <!--footer end-->
     </section>
 
 </section>

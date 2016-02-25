@@ -45,23 +45,67 @@
                     <header class="panel-heading">
                         <span><i class="yh"></i>修改用户</span>
                     </header>
-                    <g:form action="fwsDepartmentSave" method="post">
+                    <g:form action="fwsUserUpdate" method="post">
 
-                        <g:hiddenField name="id" value="${departmentInstance?.id}" />
-                        <g:hiddenField name="version" value="${departmentInstance?.version}" />
+                        <g:hiddenField name="id" value="${fwsUserInstance?.id}" />
+                        <g:hiddenField name="version" value="${fwsUserInstance?.version}" />
                         <table>
                                    <tr>
-                                       <td>部门名称：</td>
-                                       <td width="345"><input name="name" class="form-control form-control-inline input-medium default-date-picker" type="text" value="${departmentInstance?.name}"></td>
+                                       <td>姓名：</td>
+                                       <td width="345"><input name="name" class="form-control form-control-inline input-medium default-date-picker" type="text" value="${fwsUserInstance?.name}"></td>
                                     </tr>
                         <tr>
-                            <td>部门负责人：</td>
-                            <td><input name="linkMan" class="form-control form-control-inline input-medium default-date-picker" type="text" value="${departmentInstance?.linkMan}"></td>
+                            <td>用户名：</td>
+                            <td><input name="username" class="form-control form-control-inline input-medium default-date-picker" type="text" value="${fwsUserInstance?.username}"></td>
                         </tr>
                         <tr>
-                            <td>部门编号：</td>
-                            <td><input name="number" class="form-control form-control-inline input-medium default-date-picker" type="text" value="${departmentInstance?.number}"></td>
+                            <td>密码：</td>
+                            <td><input name="password" class="form-control form-control-inline input-medium default-date-picker" type="text" value="${fwsUserInstance?.password}"></td>
                         </tr>
+
+                        <tr>
+                            <td>电话：</td>
+                            <td><input name="phone" class="form-control form-control-inline input-medium default-date-picker" type="text" value="${fwsUserInstance?.phone}"></td>
+                        </tr>
+
+
+                        <tr>
+                            <td>职位：</td>
+                            <td><input name="position" class="form-control form-control-inline input-medium default-date-picker" type="text" value="${fwsUserInstance?.position}"></td>
+                        </tr>
+                        <tr>
+                            <td>收入：</td>
+                            <td><input name="money" class="form-control form-control-inline input-medium default-date-picker" type="text" value="${fwsUserInstance?.money}"></td>
+                        </tr>
+                        <tr>
+                            <td>部门：</td>
+                            <td>
+                                <g:select name="departmentId" from="${fwsUserInstance.fwsShop.department}" optionKey="id" optionValue="name" required="" value="${fwsUserInstance?.departmentId}" class="form-control form-control-inline input-medium"/>
+                            </td>
+                        </tr>
+                        <tr>
+                        <tr>
+                            <td>权限：</td>
+                            <td>
+                                <g:each in="${gongnenglistrole}" status="i" var="gongneng">
+                                    <label class="checkbox-inline">
+                                        %{--<g:if test="${listgongneng.get(i).functionName==gongneng.functionName}"> checked="checked"" </g:if>--}%
+
+
+                                    <input name="gongneng" type="checkbox"    <g:if test="${cbjlfws.FwsUserRole.findAllByFwsUserRoleGongNengIdAndFwsUserRoleId(gongneng.id,fwsUserInstance.id)}"> checked="checked"" </g:if> id="inlineCheckbox1" value="${gongneng.id}"> ${gongneng.functionName}
+                                    </label>
+                                </g:each>
+
+                            </td>
+                        </tr>
+                        <td>
+                            创建时间：
+                        </td>
+                        <td>
+                            <g:datePicker name="time" precision="day"  value="${fwsUserInstance?.time}"  />
+                        </td>
+                        </tr>
+
                         <tr>
                             <td></td>
                             <td align="right"><button type="submit" class="btn btn-info">保存</button><a href="javascript:history.go(-1);" class="ml20 btn btn-info">取消</a></td>
