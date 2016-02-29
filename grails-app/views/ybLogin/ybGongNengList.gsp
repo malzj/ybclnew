@@ -50,32 +50,27 @@
             <input name="keyboard" type="text" size="60" value="" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '';}" />
         </div>
         <input type="submit" formtarget="_blank" name="Submit22" value="搜索" />
-        <g:link action="ybUserCreate" target="_self"><span class="yzf_05_01_ts">删除</span></g:link><g:link action="ybGongNengCreate" target="_self"><span class="yzf_05_01_ts">添加</span></g:link>
+        <g:link action="ybUserCreate" target="_self"><span class="yzf_05_01_ts">删除</span></g:link><a href="javascrip:;" target="_self" id="ybGongNengCreate"><span class="yzf_05_01_ts">添加</span></a>
     </div>
     <div class="yzf_07_bot">
         <p style="background:#48bbb4; color:#fff;"><span>序号</span><span>功能名称</span><span>功能链接</span><span>时间</span></p>
 
         <g:each in="${ybGongNengInstanceList}" status="i" var="gnInstance">
-            <g:link action="ybGongNengShow" target="_self" id="${gnInstance?.id}"><span>${gnInstance.id}</span><span>${gnInstance.functionName}</span><span>${gnInstance.functionLink}</span><span>${gnInstance.time}</span>
-                %{--<span><g:link action="ybGongNengShow" id="${gnInstance?.id}" class="btn btn-success btn-xs"><i class="fa fa-eye"></i></g:link>--}%
-                    %{--<g:link action="ybGongNengEdit" id="${gnInstance?.id}" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></g:link>--}%
-                    %{--<g:link action="ybGongNengDelete" id="${gnInstance?.id}" class="btn btn-danger btn-xs" onclick="return confirm('确定删除？');"><i class="fa fa-trash-o "></i></g:link>--}%
-                %{--</span>--}%
-            </g:link>
+            <a class="ybGongNengEdit" href="javascript:;"><span>${gnInstance.id}</span><span>${gnInstance.functionName}</span><span>${gnInstance.functionLink}</span><span>${gnInstance.time}</span>
+
+            </a>
 
         </g:each>
 
 
-
-        <td>
-            <g:link action="ybGongNengShow" id="${userInstance?.id}" class="btn btn-success btn-xs"><i class="fa fa-eye"></i></g:link>
-            <g:link action="ybGongNengEdit" id="${userInstance?.id}" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></g:link>
-            <g:link action="ybGongNengDelete" id="${userInstance?.id}" class="btn btn-danger btn-xs" onclick="return confirm('确定删除？');"><i class="fa fa-trash-o "></i></g:link>
-        </td>
-        <div id="yz_body_ri_02_01_nr_ssy"> <a href="#" target="_self" style="background:#fff;">1</a><a href="#" target="_self">2</a><a href="#" target="_self">3</a><a href="#" target="_self">4</a><a href="#" target="_self">5</a>
-            <button>下一页</button>
-            <button>上一页</button>
+        <div class="pagination">
+            <g:paginate total="${ybGongNengInstanceTotal}" />
         </div>
+
+        %{--<div id="yz_body_ri_02_01_nr_ssy"> <a href="#" target="_self" style="background:#fff;">1</a><a href="#" target="_self">2</a><a href="#" target="_self">3</a><a href="#" target="_self">4</a><a href="#" target="_self">5</a>--}%
+            %{--<button>下一页</button>--}%
+            %{--<button>上一页</button>--}%
+        %{--</div>--}%
     </div>
 </div>
 <div class="yz_foot">
@@ -84,6 +79,89 @@
         <dd>京ICP备14024271号-1 Copyright © YBCL 2014 .All rights reserved.</dd>
     </dl>
 </div>
+<div class="yz-01_fd create">
+    <ul class="yzf_07-01_fd">
+        <h2>用户添加</h2>
+        <g:form controller="ybLogin" action="fwsGongNengSave" method= "post" enctype= "multipart/form-data">
+            <li><span>功能名称：</span>
+                <input name="username" type="text" size="60" value="" class="username"/>
+            </li>
+            <li><span>功能链接：</span>
+                <input name="password" type="text" size="60" value="" class="password"/>
+            </li>
+            <li><span>时&nbsp;&nbsp;间：</span>
+                <input name="name" type="text" size="60" value="" class="name"/>
+            </li>
+
+            <button type="submit" style="margin:10px 5px 10px 25px;" >提交</button><button type="button" style="margin:10px 0;" class="cancel">取消</button>
+        </g:form>
+    </ul>
+</div>
+<div class="yz-01_fd show">
+    <ul class="yzf_07-01_fd">
+        <h2>用户详情</h2>
+        <li><span>功能名称：</span>
+            <input name="username" type="text" size="60" value="" class="username"/>
+        </li>
+        <li><span>功能链接：</span>
+            <input name="password" type="text" size="60" value="" class="password"/>
+        </li>
+        <li><span>时&nbsp;&nbsp;间：</span>
+            <input name="name" type="text" size="60" value="" class="name"/>
+        </li>
+        <a href="index_07.html" target="_self" style="margin:10px 5px 10px 25px;" >提交</a><a href="index_07.html" target="_self" style="margin:10px 0;" >取消</a>
+    </ul>
+</div>
+<div class="yz-01_fd edit">
+    <ul class="yzf_07-01_fd">
+        <h2>用户编辑</h2>
+        <li><span>功能名称：</span>
+            <input name="username" type="text" size="60" value="" class="username"/>
+        </li>
+        <li><span>功能链接：</span>
+            <input name="password" type="text" size="60" value="" class="password"/>
+        </li>
+        <li><span>时&nbsp;&nbsp;间：</span>
+            <input name="name" type="text" size="60" value="" class="name"/>
+        </li>
+        <button type="submit" style="margin:10px 5px 10px 25px;" >提交</button><button  style="margin:10px 0;" class="cancel">取消</button>
+    </ul>
+</div>
+<script src="${resource(dir: 'ybjc/js/', file: 'jquery.js')}"></script>
+<script>
+    $(function(){
+        $('#ybGongNengCreate').click(function(){
+            $('.create').css('display','block');
+        })
+        $('.cancel').click(function(){
+            $('.yzf_07-01_fd input').val('');
+            $('.yz-01_fd').css('display','none');
+        })
+        $('.ybGongNengEdit').click(function(){
+            var id=$(this).find('span:first').html();
+
+
+            $.ajax( {
+                url:'${webRequest.baseUrl}/YbLogin/ybGongNengEdit',
+                type:'post',
+                dataType:'json',
+                data:{id:id},
+                success:function(data){
+
+                    $('.edit .username').val(data.ybGongNengInstance.functionName);
+                    $('.edit .password').val(data.ybGongNengInstance.functionLink);
+                    $('.edit .name').val(data.ybGongNengInstance.time);
+
+                    $('.edit').css('display','block');
+                },
+                error:function(){
+                    alert('查询失败！')
+                }
+
+            })
+        })
+    })
+</script>
 </body>
 </html>
 
@@ -141,7 +219,7 @@
 %{--<section id="container" >--}%
     %{--<!--header start-->--}%
     %{--<g:render template="header" />--}%
-    %{--<!--header end-->--}%
+    %{--<!--header end-->--}
     %{--<!--sidebar start-->--}%
     %{--<g:render template="sidebar" />--}%
     %{--<!--sidebar end-->--}%

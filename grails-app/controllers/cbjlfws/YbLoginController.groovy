@@ -1,5 +1,6 @@
 package cbjlfws
 
+import grails.converters.JSON
 import org.springframework.dao.DataIntegrityViolationException
 
 class YbLoginController {
@@ -120,33 +121,50 @@ class YbLoginController {
         [ybUserList:ybUserList,ybUserInstance: ybUserInstance, list: list, listgongneng: listgongneng]
     }
 
-    def ybUserEdit(Long id) {
-        def list = side()
-
-        def ybUserInstance = YbUser.get(id)
-        if (!ybUserInstance) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'ybUser.label', default: 'YbUser'), id])
-            redirect(action: "list")
-            return
+    def ybUserEdit() {
+//        def list = side()
+//
+//        def ybUserInstance = YbUser.get(id)
+//        if (!ybUserInstance) {
+//            flash.message = message(code: 'default.not.found.message', args: [message(code: 'ybUser.label', default: 'YbUser'), id])
+//            redirect(action: "list")
+//            return
+//        }
+//        def gongnenglist = YbRole.findAllByYbUserId(id)
+//        def size = gongnenglist.size()
+//
+//        def i = 0
+//        def listgongneng = []
+//        for (i; i < size; i++) {
+//            def s = gongnenglist.get(i)
+//            def gongnengId = s.ybGongNengId
+//            def g = YbGongNeng.findById(gongnengId)
+//            print(s)
+//            listgongneng << g
+//        }
+//        def gongnenglistrole = YbGongNeng.list()
+//
+//
+//        [ybUserInstance: ybUserInstance, list: list, listgongneng: listgongneng, gongnenglistrole: gongnenglistrole]
+        def rs =[:]
+        def id=params.id
+        def ybUserInstance=YbUser.get(id)
+        if(!ybUserInstance){
+            rs.result=false
+            rs.msg='查询失败！'
+        }else{
+            rs.result=true
+            rs.ybUserInstance=ybUserInstance
         }
-        def gongnenglist = YbRole.findAllByYbUserId(id)
-        def size = gongnenglist.size()
-
-        def i = 0
-        def listgongneng = []
-        for (i; i < size; i++) {
-            def s = gongnenglist.get(i)
-            def gongnengId = s.ybGongNengId
-            def g = YbGongNeng.findById(gongnengId)
-            print(s)
-            listgongneng << g
-        }
-        def gongnenglistrole = YbGongNeng.list()
 
 
-        [ybUserInstance: ybUserInstance, list: list, listgongneng: listgongneng, gongnenglistrole: gongnenglistrole]
+
+        if (params.callback) {
+            render "${params.callback}(${rs as JSON})"
+        } else
+            render rs as JSON
+
     }
-
     def ybUserUpdate(Long id, Long version) {
         def ybUserInstance = YbUser.get(id)
         if (!ybUserInstance) {
@@ -362,16 +380,33 @@ class YbLoginController {
             }
         }
 
-        def ybGongNengEdit(Long id) {
-            def list = side()
-            def ybGongNengInstance = YbGongNeng.get(id)
-            if (!ybGongNengInstance) {
-                flash.message = message(code: 'default.not.found.message', args: [message(code: 'ybGongNeng.label', default: 'YbGongNeng'), id])
-                redirect(action: "list")
-                return
+        def ybGongNengEdit() {
+//            def list = side()
+//            def ybGongNengInstance = YbGongNeng.get(id)
+//            if (!ybGongNengInstance) {
+//                flash.message = message(code: 'default.not.found.message', args: [message(code: 'ybGongNeng.label', default: 'YbGongNeng'), id])
+//                redirect(action: "list")
+//                return
+//            }
+//
+//            [ybGongNengInstance: ybGongNengInstance, list: list]
+            def rs =[:]
+            def id=params.id
+            def ybGongNengInstance=YbGongNeng.get(id)
+            if(!ybGongNengInstance){
+                rs.result=false
+                rs.msg='查询失败！'
+            }else{
+                rs.result=true
+                rs.ybGongNengInstance=ybGongNengInstance
             }
 
-            [ybGongNengInstance: ybGongNengInstance, list: list]
+
+
+            if (params.callback) {
+                render "${params.callback}(${rs as JSON})"
+            } else
+                render rs as JSON
         }
 
         def ybGongNengUpdate(Long id, Long version) {
@@ -560,16 +595,33 @@ class YbLoginController {
     }
 
     //编辑
-    def fwsGongNengEdit(Long id) {
-        def list = side()
-        def fwsGongNengInstance = FwsGongNeng.get(id)
-        if (!fwsGongNengInstance) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'fwsGongNeng.label', default: 'FwsGongNeng'), id])
-            redirect(action: "list")
-            return
+    def fwsGongNengEdit() {
+//        def list = side()
+//        def fwsGongNengInstance = FwsGongNeng.get(id)
+//        if (!fwsGongNengInstance) {
+//            flash.message = message(code: 'default.not.found.message', args: [message(code: 'fwsGongNeng.label', default: 'FwsGongNeng'), id])
+//            redirect(action: "list")
+//            return
+//        }
+//
+//        [fwsGongNengInstance: fwsGongNengInstance, list: list]
+        def rs =[:]
+        def id=params.id
+        def fwsGongNengInstance=FwsGongNeng.get(id)
+        if(!fwsGongNengInstance){
+            rs.result=false
+            rs.msg='查询失败！'
+        }else{
+            rs.result=true
+            rs.fwsGongNengInstance=fwsGongNengInstance
         }
 
-        [fwsGongNengInstance: fwsGongNengInstance, list: list]
+
+
+        if (params.callback) {
+            render "${params.callback}(${rs as JSON})"
+        } else
+            render rs as JSON
     }
 
     //更新

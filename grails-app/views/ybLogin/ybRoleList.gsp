@@ -57,7 +57,7 @@
         <p style="background:#48bbb4; color:#fff;"><span>用户ID</span><span>功能ID</span><span>时间</span></p>
 
         <g:each in="${ybRoleInstanceList}" status="i" var="roleInstance">
-            <g:link action="ybRoleShow" target="_self" id="${roleInstance?.id}"><span>${roleInstance.YbUserId}</span><span>${roleInstance.YbGongNengId}</span><span>${roleInstance.time}</span></g:link>
+            <a class="ybRoleEdit" href="javascript:;"><span style="display:none;">${roleInstance.id}</span><span>${roleInstance.YbUserId}</span><span>${roleInstance.YbGongNengId}</span><span>${roleInstance.time}</span></a>
 
         </g:each>
         <div id="yz_body_ri_02_01_nr_ssy"> <a href="#" target="_self" style="background:#fff;">1</a><a href="#" target="_self">2</a><a href="#" target="_self">3</a><a href="#" target="_self">4</a><a href="#" target="_self">5</a>
@@ -72,6 +72,98 @@
         <dd>京ICP备14024271号-1 Copyright © YBCL 2014 .All rights reserved.</dd>
     </dl>
 </div>
+<div class="yz-01_fd create">
+    <ul class="yzf_07-01_fd">
+        <h2>用户添加</h2>
+        <g:form controller="ybLogin" action="ybUserSave" method= "post" enctype= "multipart/form-data">
+            <li><span>账&nbsp;&nbsp;号：</span>
+                <input name="username" type="text" size="60" value="" class="username"/>
+            </li>
+            <li><span>密&nbsp;&nbsp;码：</span>
+                <input name="password" type="text" size="60" value="" class="password"/>
+            </li>
+            <li><span>名&nbsp;&nbsp;称：</span>
+                <input name="name" type="text" size="60" value="" class="name"/>
+            </li>
+            <li><span>关联角色：</span>
+                <input name="position" type="text" size="60" value="" class="position"/>
+            </li>
+            <button type="submit" style="margin:10px 5px 10px 25px;" >提交</button><button type="button" style="margin:10px 0;" class="cancel">取消</button>
+        </g:form>
+    </ul>
+</div>
+<div class="yz-01_fd show">
+    <ul class="yzf_07-01_fd">
+        <h2>用户详情</h2>
+        <li><span>账&nbsp;&nbsp;号：</span>
+            <input name="username" type="text" size="60" value="" class="username" readonly/>
+        </li>
+        <li><span>密&nbsp;&nbsp;码：</span>
+            <input name="password" type="text" size="60" value="" class="password" readonly/>
+        </li>
+        <li><span>名&nbsp;&nbsp;称：</span>
+            <input name="name" type="text" size="60" value="" class="name" readonly/>
+        </li>
+        <li><span>关联角色：</span>
+            <input name="position" type="text" size="60" value="" class="position" readonly/>
+        </li>
+        <a href="index_07.html" target="_self" style="margin:10px 5px 10px 25px;" >提交</a><a href="index_07.html" target="_self" style="margin:10px 0;" >取消</a>
+    </ul>
+</div>
+<div class="yz-01_fd edit">
+    <ul class="yzf_07-01_fd">
+        <h2>用户编辑</h2>
+        <li><span>账&nbsp;&nbsp;号：</span>
+            <input name="username" type="text" size="60" value="" class="username"/>
+        </li>
+        <li><span>密&nbsp;&nbsp;码：</span>
+            <input name="password" type="text" size="60" value="" class="password"  />
+        </li>
+        <li><span>名&nbsp;&nbsp;称：</span>
+            <input name="name" type="text" size="60" value="" class="name"  />
+        </li>
+        <li><span>关联角色：</span>
+            <input name="position" type="text" size="60" value="" class="position"  />
+        </li>
+        <button type="submit" style="margin:10px 5px 10px 25px;" >提交</button><button  style="margin:10px 0;" class="cancel">取消</button>
+    </ul>
+</div>
+<script src="${resource(dir: 'ybjc/js/', file: 'jquery.js')}"></script>
+<script>
+    $(function(){
+        $('#ybUserCreate').click(function(){
+            $('.create').css('display','block');
+        })
+        $('.cancel').click(function(){
+            $('.yzf_07-01_fd input').val('');
+            $('.yz-01_fd').css('display','none');
+        })
+        $('.ybUserEdit').click(function(){
+            var id=$(this).find('span:first').html();
+
+
+            $.ajax( {
+                url:'${webRequest.baseUrl}/YbLogin/ybUserEdit',
+                type:'post',
+                dataType:'json',
+                data:{id:id},
+                success:function(data){
+                    $('.edit .username').val(data.ybUserInstance.username);
+                    $('.edit .password').val(data.ybUserInstance.password);
+                    $('.edit .name').val(data.ybUserInstance.name);
+                    $('.edit .position').val(data.ybUserInstance.position);
+
+
+                    $('.edit').css('display','block');
+                },
+                error:function(){
+                    alert('查询失败！')
+                }
+
+            })
+        })
+    })
+</script>
 </body>
 </html>
 

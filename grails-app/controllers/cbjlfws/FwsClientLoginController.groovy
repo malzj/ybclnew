@@ -1,5 +1,6 @@
 package cbjlfws
 
+import grails.converters.JSON
 import org.springframework.dao.DataIntegrityViolationException
 
 class FwsClientLoginController {
@@ -68,12 +69,13 @@ class FwsClientLoginController {
 //        //通过服务商对象获取服务商list
 //        def fwsUserList = FwsUser.findAllByFwsShop(fwsShop)
 //        [fwsUserList: fwsUserList, id: fwsShopId, name: name, fwsUserInstanceTotal: FwsUser.countByFwsShop(fwsShop)]
+        def list = side()
         params.max = Math.min(max ?: 10, 100)
         def fwsUser = session.fwsUser
         def fwsShop = FwsShop.get(fwsUser.fwsShop.id)
         def name = fwsShop.name
         def fwsUserList = FwsUser.findAllByFwsShop(fwsShop)
-        [fwsUserList: fwsUserList, id: fwsUser.fwsShop.id, name: name, fwsUserInstanceTotal: FwsUser.countByFwsShop(fwsShop)]
+        [fwsUserList: fwsUserList, id: fwsUser.fwsShop.id, name: name, fwsUserInstanceTotal: FwsUser.countByFwsShop(fwsShop),list:list]
     }
 
     //Create
@@ -153,31 +155,45 @@ class FwsClientLoginController {
     }
 
     //Edit
-    def fwsUserEdit(Long id) {
-        def fwsUserInstance = FwsUser.get(id)
-        def fwsShopId = fwsUserInstance.fwsShopId
-        def departmentList = FwsShop.get(fwsShopId).department
-        def gongnenglist = FwsUserRole.findAllByFwsUserRoleId(id)
-        def size = gongnenglist.size()
-
-        def i = 0
-        def listgongneng = []
-        for (i; i < size; i++) {
-            def s = gongnenglist.get(i)
-            def gongnengId = s.fwsUserRoleGongNengId
-            def g = FwsGongNeng.findById(gongnengId)
-            print(s)
-            listgongneng << g
+    def fwsUserEdit() {
+//        def fwsUserInstance = FwsUser.get(id)
+//        def fwsShopId = fwsUserInstance.fwsShopId
+//        def departmentList = FwsShop.get(fwsShopId).department
+//        def gongnenglist = FwsUserRole.findAllByFwsUserRoleId(id)
+//        def size = gongnenglist.size()
+//
+//        def i = 0
+//        def listgongneng = []
+//        for (i; i < size; i++) {
+//            def s = gongnenglist.get(i)
+//            def gongnengId = s.fwsUserRoleGongNengId
+//            def g = FwsGongNeng.findById(gongnengId)
+//            print(s)
+//            listgongneng << g
+//        }
+//        def gongnenglistrole = FwsGongNeng.list()
+//
+//        if (!fwsUserInstance) {
+//            flash.message = message(code: 'default.not.found.message', args: [message(code: 'fwsUser.label', default: 'FwsUser'), id])
+//            redirect(action: "fwsUserList")
+//            return
+//        }
+//
+//        [fwsUserInstance: fwsUserInstance, name: fwsUserInstance.fwsShop.name, id: fwsShopId, departmentList: departmentList, gongnenglistrole: gongnenglistrole, listgongneng: listgongneng]
+        def rs =[:]
+        def id=params.id
+        def fwsUserInstance=FwsUser.get(id)
+        if(!fwsUserInstance){
+            rs.result=false
+            rs.msg='查询失败！'
+        }else{
+            rs.result=true
+            rs.fwsUserInstance=fwsUserInstance
         }
-        def gongnenglistrole = FwsGongNeng.list()
-
-        if (!fwsUserInstance) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'fwsUser.label', default: 'FwsUser'), id])
-            redirect(action: "fwsUserList")
-            return
-        }
-
-        [fwsUserInstance: fwsUserInstance, name: fwsUserInstance.fwsShop.name, id: fwsShopId, departmentList: departmentList, gongnenglistrole: gongnenglistrole, listgongneng: listgongneng]
+        if (params.callback) {
+            render "${params.callback}(${rs as JSON})"
+        } else
+            render rs as JSON
     }
 
     //Update
@@ -260,8 +276,8 @@ class FwsClientLoginController {
         def fwsShop = FwsShop.get(fwsUser.fwsShop.id)
         def name = fwsShop.name
         def fwsClientDepartmentList = Department.findAllByFwsShop(fwsShop)
-
-        [fwsClientDepartmentList: fwsClientDepartmentList, id: fwsUser.fwsShop.id,name: name, fwsClientDepartmentInstanceTotal: Department.countByFwsShop(fwsShop)]
+        def list=side();
+        [fwsClientDepartmentList: fwsClientDepartmentList, id: fwsUser.fwsShop.id,name: name, fwsClientDepartmentInstanceTotal: Department.countByFwsShop(fwsShop),list:list]
     }
     //添加
     def fwsClientDepartmentCreate() {
@@ -369,5 +385,36 @@ class FwsClientLoginController {
         redirect(action: "fwsClientDepartmentShow", id: fwsClientDepartmentInstance.id)
 
     }
-
+    def fwsClientlist(Integer max){
+        def list = side()
+        params.max = Math.min(max ?: 10, 100)
+        def fwsUser = session.fwsUser
+        def fwsShop = FwsShop.get(fwsUser.fwsShop.id)
+        def name = fwsShop.name
+        def fwsClientList = FwsClient.findAllByFwsShop(fwsShop)
+        [fwsClientList: fwsClientList, id: fwsUser.fwsShop.id, name: name, fwsUserInstanceTotal: FwsUser.countByFwsShop(fwsShop),list:list]
+    }
+    def yyjd(){
+        def list=side()
+        [list:list]
+    }
+    def wxjd(){
+        def list=side()
+        [list:list]
+    }
+    def wxlj(){
+        def list=side()
+        [list:list]}
+    def cjgl(){
+        def list=side()
+        [list:list]}
+    def kfgl(){
+        def list=side()
+        [list:list]}
+    def cwgl(){
+        def list=side()
+        [list:list]}
+    def clgl(){
+        def list=side()
+        [list:list]}
 }

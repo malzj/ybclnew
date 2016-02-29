@@ -18,13 +18,13 @@
 <div class="yz-01_fd">
     <ul class="yzf_07-01_fd">
         <h2>用户添加</h2>
-        <li><span>账&nbsp;&nbsp;&nbsp;&nbsp;号：</span>
+        <li><span>账&nbsp;&nbsp;号：</span>
             <input name="keyboard" type="text" size="60" value="" />
         </li>
-        <li><span>密&nbsp;&nbsp;&nbsp;&nbsp;码：</span>
+        <li><span>密&nbsp;&nbsp;码：</span>
             <input name="keyboard" type="text" size="60" value="" />
         </li>
-        <li><span>名&nbsp;&nbsp;&nbsp;&nbsp;称：</span>
+        <li><span>名&nbsp;&nbsp;称：</span>
             <input name="keyboard" type="text" size="60" value="" />
         </li>
         <li><span>关联角色：</span>
