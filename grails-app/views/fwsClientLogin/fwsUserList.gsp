@@ -65,7 +65,7 @@
         <p style="background:#f8f8f8; border-bottom:1px #48bbb4 solid;"><span>雇员编号</span><span>雇员姓名</span><span>电话</span><span>部门</span><span>班组</span><span>职位</span><span>收入</span><span>状态</span></p>
         <g:each in="${fwsUserList}" status="i" var="userInstance">
             <a class="fwsUserEdit" href="javascript:;" ><span style="display:none;">${userInstance?.id}</span><span>BMW-KE-005716</span><span>${userInstance?.name}</span><span>${userInstance?.phone}</span><span>${userInstance?.department.id}</span>
-                <span>${userInstance.group}</span><span>${userInstance.position}</span><span>${userInstance.money}</span><span>${userInstance.status}</span>
+                <span>${userInstance.groups}</span><span>${userInstance.position}</span><span>${userInstance.money}</span><span>${userInstance.status}</span>
             </a>
         </g:each>
         <div id="yz_body_ri_02_01_nr_ssy"> <a href="#" target="_self" style="background:#fff;">1</a><a href="#" target="_self">2</a><a href="#" target="_self">3</a><a href="#" target="_self">4</a><a href="#" target="_self">5</a>
@@ -115,7 +115,7 @@
         </li>
         <li><span>班&nbsp;&nbsp;组：</span>
 
-                <select name="group" class="group">
+                <select name="groups" class="groups">
                     <option value=""></option>
                     <option value="1">班组1</option>
                     <option value="2">班组2</option>
@@ -185,6 +185,7 @@
 <div class="yz-01_fd edit">
     <ul class="yzf_09_04-01_fd">
         <h2>雇员编辑</h2>
+        <g:form controller="fwsClientLogin" action="fwsUserUpdate" method= "post" enctype= "multipart/form-data">
         <li><span>账&nbsp;&nbsp;号：</span>
             <input name="username" type="text" size="60" value=""  class="username"/>
         </li>
@@ -213,7 +214,7 @@
         </li>
         <li><span>班&nbsp;&nbsp;组：</span>
 
-                <select name="group" class="group">
+                <select name="groups" class="groups">
                     <option value=""></option>
                     <option value="1">班组1</option>
                     <option value="2">班组2</option>
@@ -276,6 +277,7 @@
             <input name="gongneng" type="checkbox" value="17"/>
             系统管理</li>
         <button type="submit" style="margin:10px 5px 10px 45px;" >提交</button><button type="button" style="margin:10px 0;" class="cancel">取消</button>
+   </g:form>
     </ul>
 </div>
 <script src="${resource(dir: 'ybjc/js/', file: 'jquery.js')}"></script>
@@ -310,7 +312,7 @@
                     $('.edit .money').val(data.fwsUserInstance.money);
                     $('.edit .time').val(data.fwsUserInstance.time);
                     $('.edit .status').val(data.fwsUserInstance.status);
-                    $('.edit .group').val(data.fwsUserInstance.group);
+                    $('.edit .groups').val(data.fwsUserInstance.groups);
                     for(var i=0;i<gongnenglist.length;i++){
                         var id=gongnenglist[i].id;
                         $("input:checkbox[name='gongneng']").each(function(){

@@ -84,11 +84,12 @@ class FwsClientLoginController {
         fwsUserInstance.username=params.username
         fwsUserInstance.name=params.name
         fwsUserInstance.password=params.password
-//        fwsUserInstance.position=params.position
+        fwsUserInstance.position=params.position
         fwsUserInstance.money=params.money
-//        fwsUserInstance.status=params.status
+
+        fwsUserInstance.status=params.status
         fwsUserInstance.phone=params.phone
-//        fwsUserInstance.group=params.group
+        fwsUserInstance.groups=params.groups
         fwsUserInstance.time=new Date()
 
         //获取功能列表
@@ -106,15 +107,15 @@ class FwsClientLoginController {
             render(view: "fwsUserList", model: [fwsUserInstance: fwsUserInstance])
             return
         }
-//        for (i; i < gongnenglist.size(); i++) {
-//            def userId = fwsUserInstance.id
-//            def gongnengId = gongnenglist[i]
-//            def fwsRole = new FwsUserRole()
-//            fwsRole.fwsUserRoleTime = new Date()
-//            fwsRole.fwsUserRoleGongNengId = gongnengId
-//            fwsRole.fwsUserRoleId = userId
-//            fwsRole.save()
-//        }
+        for (i; i < gongnenglist.size(); i++) {
+            def userId = fwsUserInstance.id
+            def gongnengId = gongnenglist[i]
+            def fwsRole = new FwsUserRole()
+            fwsRole.fwsUserRoleTime = new Date()
+            fwsRole.fwsUserRoleGongNengId = gongnengId
+            fwsRole.fwsUserRoleId = userId
+            fwsRole.save()
+        }
 
         flash.message = message(code: 'default.created.message', args: [message(code: 'ybUser.label', default: 'YbUser'), fwsUserInstance.id])
         redirect(action: "fwsUserList")
@@ -205,7 +206,7 @@ class FwsClientLoginController {
     //Update
     def fwsUserUpdate(Long id, Long version) {
         def fwsUserInstance = FwsUser.get(id)
-        fwsUserInstance.department = Department.get(params.departmentId)
+        fwsUserInstance.department = Department.get(params.department)
         if (!fwsUserInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'fwsUser.label', default: 'FwsUser'), id])
             redirect(action: "fwsUserList")
