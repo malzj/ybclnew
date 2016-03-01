@@ -298,8 +298,8 @@ ul, ul li, p, h1, h2, h3, dl, dt, dd { list-style: none outside none; font-weigh
 .yzf_07-01_fd h2 { display:block; width:100%; height:35px; line-height:35px; text-align:center; font-size:18px; color:#fff; background:#48bbb4;}
 .yzf_07-01_fd li { width:100%; height:35px; line-height:35px; padding: 0 0 0 30px;}
 .yzf_07-01_fd li input[type="text"] { width:50%;}
-.yzf_07-01_fd button {outline:none;border:none; display:block; float:left; width:100px; height:35px; line-height:35px; text-align:center; font-size:16px; color:#fff; background:#48bbb4; border-radius: 10px; -moz-border-radius: 10px;}
-.yzf_07-01_fd button:focus {border:none;}
+.yzf_07-01_fd button {cursor:pointer;outline:none;border:none; display:block; float:left; width:100px; height:35px; line-height:35px; text-align:center; font-size:16px; color:#fff; background:#48bbb4; border-radius: 10px; -moz-border-radius: 10px;}
+
 /*yzf_08*/
 .yzf_08_bot { width:100%; height:auto; overflow:hidden; margin:10px auto 0 auto; }
 .yzf_08_bot a ,.yzf_08_bot p { display:block; width:100%; height:35px; line-height:35px;}
@@ -372,7 +372,7 @@ ul, ul li, p, h1, h2, h3, dl, dt, dd { list-style: none outside none; font-weigh
 .yzf_09_04-01_fd li form { display:block; float:left; width:150px; height:auto; box-sizing: border-box; -moz-box-sizing:border-box; -webkit-box-sizing:border-box;}
 .yzf_09_04-01_fd li form select { display:block; width:150px; height:23px; line-height:23px; border:1px #e6e6e6 solid; margin:6px 0; }
 .yzf_09_04-01_fd li form select option { text-indent:0.5em;}
-.yzf_09_04-01_fd a { display:block; float:left; width:100px; height:35px; line-height:35px; text-align:center; font-size:16px; color:#fff; background:#48bbb4; border-radius: 10px; -moz-border-radius: 10px; box-sizing: border-box; -moz-box-sizing:border-box; -webkit-box-sizing:border-box;}
+.yzf_09_04-01_fd button {cursor:pointer;border:none;outline:none; display:block; float:left; width:100px; height:35px; line-height:35px; text-align:center; font-size:16px; color:#fff; background:#48bbb4; border-radius: 10px; -moz-border-radius: 10px; box-sizing: border-box; -moz-box-sizing:border-box; -webkit-box-sizing:border-box;}
 #yzf_09_04-01_fd_xm { display:block; float:left; width:150px; height:23px; line-height:23px; text-align:center; color:#67B03D; margin:6px 0; border:1px #e6e6e6 solid; font-size:12px; background:none; border-radius: 0px; -moz-border-radius: 0px; box-sizing: border-box; -moz-box-sizing:border-box; -webkit-box-sizing:border-box;}
 /*yzf_09_05*/
 .yzf_09_05_bot { width:98%; height:auto; overflow:hidden; margin: 0 auto; border:1px #ccc solid; padding: 0 0 10px 0;}

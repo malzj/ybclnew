@@ -24,6 +24,7 @@ class FwsClientLoginController {
             session.fwsUser = fwsUser
             def date = new Date()
             if (date <= fwsUser.fwsShop.ybClient.overTime && date >= fwsUser.fwsShop.ybClient.beginTime) {
+
                 redirect(action: "fwsClientIndex")
             } else {
                 redirect(action: "index", msg: "您的公司账号已过期", id: 2)
@@ -60,71 +61,63 @@ class FwsClientLoginController {
     //人事管理模块
     //List
     def fwsUserList(Integer max) {
-//        //获取服务商ID
-//        def fwsShopId = params.id
-//        //获取服务商对象
-//        def fwsShop = FwsShop.get(fwsShopId)
-//        //获取服务商属性名字
-//        def name = fwsShop.name
-//        //通过服务商对象获取服务商list
-//        def fwsUserList = FwsUser.findAllByFwsShop(fwsShop)
-//        [fwsUserList: fwsUserList, id: fwsShopId, name: name, fwsUserInstanceTotal: FwsUser.countByFwsShop(fwsShop)]
+
         def list = side()
         params.max = Math.min(max ?: 10, 100)
         def fwsUser = session.fwsUser
+        if(!fwsUser){
+            redirect (action: index(),params: [msg:  "登陆已过期，请重新登陆"])
+            return
+        }
+
+
         def fwsShop = FwsShop.get(fwsUser.fwsShop.id)
         def name = fwsShop.name
         def fwsUserList = FwsUser.findAllByFwsShop(fwsShop)
         [fwsUserList: fwsUserList, id: fwsUser.fwsShop.id, name: name, fwsUserInstanceTotal: FwsUser.countByFwsShop(fwsShop),list:list]
     }
 
-    //Create
-    def fwsUserCreate(){
-//        def fwsShopId = params.id
-//        def fwsShop = FwsShop.get(fwsShopId)
-//        def name = fwsShop.name
-//        def gongnenglist = FwsGongNeng.list()
-//        def departmentList = fwsShop.department
-//        [fwsUserInstance: new FwsUser(params), id: fwsShopId, name: name, gongnenglist: gongnenglist, departmentList: departmentList]
-        def fwsShopId = session.fwsUser.fwsShop.id
-        def fwsShop = FwsShop.get(fwsShopId)
-        def name = fwsShop.name
-        def gongnengList = FwsGongNeng.list()
-        def departmentList = fwsShop.department
-        [fwsUserInstance: new FwsUser(params), id: fwsShopId, name: name, gongnenglist: gongnengList, departmentList: departmentList]
-    }
-
     //Save
     def fwsUserSave() {
         //创建新对象
-        def fwsUserInstance = new FwsUser(params)
+        def fwsUserInstance = new FwsUser()
+        fwsUserInstance.username=params.username
+        fwsUserInstance.name=params.name
+        fwsUserInstance.password=params.password
+//        fwsUserInstance.position=params.position
+        fwsUserInstance.money=params.money
+//        fwsUserInstance.status=params.status
+        fwsUserInstance.phone=params.phone
+//        fwsUserInstance.group=params.group
+        fwsUserInstance.time=new Date()
+
         //获取功能列表
         def gongnenglist = params.gongneng
         //获取部门id
-        def departmentId = params.departmentId
+        def departmentId = params.department
         //获取服务商Id
-        def fwsShopId = params.fwsShopId
+        def fwsShopId = session.fwsUser.fwsShopId
         //新建对象的服务商绑定
         fwsUserInstance.fwsShop = FwsShop.get(fwsShopId)
         //新建对象的部门绑定
         fwsUserInstance.department = Department.get(departmentId)
         def i = 0
         if (!fwsUserInstance.save(flush: true)) {
-            render(view: "fwsUserCreate", model: [fwsUserInstance: fwsUserInstance])
+            render(view: "fwsUserList", model: [fwsUserInstance: fwsUserInstance])
             return
         }
-        for (i; i < gongnenglist.size(); i++) {
-            def userId = fwsUserInstance.id
-            def gongnengId = gongnenglist[i]
-            def fwsRole = new FwsUserRole()
-            fwsRole.fwsUserRoleTime = new Date()
-            fwsRole.fwsUserRoleGongNengId = gongnengId
-            fwsRole.fwsUserRoleId = userId
-            fwsRole.save()
-        }
+//        for (i; i < gongnenglist.size(); i++) {
+//            def userId = fwsUserInstance.id
+//            def gongnengId = gongnenglist[i]
+//            def fwsRole = new FwsUserRole()
+//            fwsRole.fwsUserRoleTime = new Date()
+//            fwsRole.fwsUserRoleGongNengId = gongnengId
+//            fwsRole.fwsUserRoleId = userId
+//            fwsRole.save()
+//        }
 
         flash.message = message(code: 'default.created.message', args: [message(code: 'ybUser.label', default: 'YbUser'), fwsUserInstance.id])
-        redirect(action: "fwsUserList", id: fwsShopId)
+        redirect(action: "fwsUserList")
     }
 
     //Show
@@ -187,8 +180,21 @@ class FwsClientLoginController {
             rs.result=false
             rs.msg='查询失败！'
         }else{
+            def fwsuserrolelist = FwsUserRole.findAllByFwsUserRoleId(id)
+            def size = fwsuserrolelist.size()
+
+            def i = 0
+            def listgongneng = []
+            for (i; i < size; i++) {
+                def s = fwsuserrolelist.get(i)
+                def gongnengId = s.fwsUserRoleGongNengId
+                def g = FwsGongNeng.findById(gongnengId)
+                print(s)
+                listgongneng << g
+            }
             rs.result=true
             rs.fwsUserInstance=fwsUserInstance
+            rs.listgongneng=listgongneng
         }
         if (params.callback) {
             render "${params.callback}(${rs as JSON})"

@@ -18,7 +18,21 @@ class FwsUser {
     String money
     //录入时间
     Date time
+    //班组
+    String group
+    //状态
+    String status
     static hasOne = [fwsShop:FwsShop,department:Department]
     static constraints = {
+        username(nullable: true)
+        password(nullable: true)
+        phone(nullable: true)
+        position(nullable: true)
+        money(nullable: true)
+        group(nullable: true)
+        status(nullable: true)
+        time(nullable: true)
+        name(nullable: true)
+
     }
 }

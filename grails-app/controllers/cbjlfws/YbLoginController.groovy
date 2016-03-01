@@ -153,6 +153,7 @@ class YbLoginController {
             rs.result=false
             rs.msg='查询失败！'
         }else{
+
             rs.result=true
             rs.ybUserInstance=ybUserInstance
         }
